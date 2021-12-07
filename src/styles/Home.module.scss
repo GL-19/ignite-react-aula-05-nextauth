@@ -1,0 +1,16 @@
+.container {
+	margin: 0 auto;
+	width: 480px;
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	gap: 0.25rem;
+
+	input {
+		width: 66%;
+	}
+}
