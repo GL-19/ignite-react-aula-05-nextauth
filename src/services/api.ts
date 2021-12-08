@@ -26,6 +26,7 @@ api.interceptors.response.use(
 	},
 	(error: AxiosError) => {
 		if (error.response.status === 401) {
+			// refresh token logic
 			if (error.response.data?.code === "token.expired") {
 				cookies = parseCookies();
 
@@ -40,14 +41,14 @@ api.interceptors.response.use(
 							refreshToken,
 						})
 						.then((response) => {
-							const { token } = response.data;
+							const { token, refreshToken: newRefreshToken } = response.data;
 
 							setCookie(undefined, "nextauth.token", token, {
 								maxAge: 60 * 60 * 24 * 30, //30 days
 								path: "/",
 							});
 
-							setCookie(undefined, "nextauth.refreshToken", response.data.refreshToken, {
+							setCookie(undefined, "nextauth.refreshToken", newRefreshToken, {
 								maxAge: 60 * 60 * 24 * 30, //30 days
 							});
 
